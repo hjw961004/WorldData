@@ -36,8 +36,8 @@ public class PanelWorld extends JPanel implements ActionListener {
 	private void pnSearchSet() {
 		pnSearch = new JPanel();
 		
-		JTextField tfSearch = new JTextField("°Ë»ö¾î¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
-		JButton btnSearch = new JButton("°Ë»ö");
+		JTextField tfSearch = new JTextField("ê²€ìƒ‰ì–´ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+		JButton btnSearch = new JButton("ê²€ìƒ‰");
 		
 		tfSearch.setPreferredSize(new Dimension(800,30));
 		btnSearch.setPreferredSize(new Dimension(100,30));
@@ -54,9 +54,9 @@ public class PanelWorld extends JPanel implements ActionListener {
 	private void pnKeywordSet() {
 		pnKeyword = new JPanel();
 		
-		JButton btnClimate = new JButton("±âÈÄ");
-		JButton btnReligion = new JButton("Á¾±³");
-		JButton btnLauguage = new JButton("¾ğ¾î");
+		JButton btnClimate = new JButton("ê¸°í›„");
+		JButton btnReligion = new JButton("ì¢…êµ");
+		JButton btnLauguage = new JButton("ì–¸ì–´");
 		
 		btnClimate.setPreferredSize(new Dimension(100, 50));
 		btnReligion.setPreferredSize(new Dimension(100, 50));
@@ -76,33 +76,33 @@ public class PanelWorld extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		switch(e.getActionCommand()) {
 		
-		case "°Ë»ö" :
+		case "ê²€ìƒ‰" :
 			break;
 			
-		case "±âÈÄ" :
+		case "ê¸°í›„" :
 			if(frSub == null) {
-				frSub = new FrameSubKeyword(1);
+				frSub = new FrameSubKeyword(1, "ê¸°í›„");
 			} else {
 				frSub.dispose();
-				frSub = new FrameSubKeyword(1);
+				frSub = new FrameSubKeyword(1, "ê¸°í›„");
 			}
 			break;
 
-		case "Á¾±³" :
+		case "ì¢…êµ" :
 			if(frSub == null) {
-				frSub = new FrameSubKeyword(2);
+				frSub = new FrameSubKeyword(2, "ì¢…êµ");
 			} else {
 				frSub.dispose();
-				frSub = new FrameSubKeyword(2);
+				frSub = new FrameSubKeyword(2, "ì¢…êµ");
 			}
 			break;
 			
-		case "¾ğ¾î" :
+		case "ì–¸ì–´" :
 			if(frSub == null) {
-				frSub = new FrameSubKeyword(3);
+				frSub = new FrameSubKeyword(3, "ì–¸ì–´");
 			} else {
 				frSub.dispose();
-				frSub = new FrameSubKeyword(3);
+				frSub = new FrameSubKeyword(3, "ì–¸ì–´");
 			}
 			break;
 		}

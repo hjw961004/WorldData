@@ -14,13 +14,13 @@ public class FrameGraph extends JFrame implements ActionListener{
 	DrawingPanel drawingPanel;
 	
 	public FrameGraph() {
-		super("±×·¡ÇÁ");
+		super("ê·¸ëž˜í”„");
 		setSize(400,350);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		btnBack = new JButton("µÚ·Î°¡±â");
+		btnBack = new JButton("ë’¤ë¡œê°€ê¸°");
 		add(btnBack, BorderLayout.NORTH);
 
 		drawingPanel = new DrawingPanel();
@@ -36,7 +36,7 @@ public class FrameGraph extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		switch(e.getActionCommand()) {
 		
-		case "µÚ·Î°¡±â" :
+		case "ë’¤ë¡œê°€ê¸°" :
 			dispose();
 			break;
 			
@@ -59,9 +59,9 @@ class DrawingPanel extends JPanel{
 		}
 		
 		g.drawLine(50,20,50,250);
-		g.drawString("ÇÑ±¹",100,270);
-		g.drawString("¹Ì±¹",200,270);
-		g.drawString("ÀÏº»",300,270);
+		g.drawString("í•œêµ­",100,270);
+		g.drawString("ë¯¸êµ­",200,270);
+		g.drawString("ì¼ë³¸",300,270);
 		g.setColor(Color.RED);
 		
 		if(korea>0)
