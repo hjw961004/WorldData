@@ -28,6 +28,7 @@ public class PanelWorld extends JPanel implements ActionListener {
 		
 		this.setLayout(new BorderLayout(10,10));
 		
+		
 		add(pnSearch, BorderLayout.NORTH);
 		add(pnMap, BorderLayout.CENTER);
 		add(pnKeyword, BorderLayout.SOUTH);
