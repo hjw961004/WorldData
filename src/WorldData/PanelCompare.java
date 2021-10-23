@@ -11,7 +11,7 @@ public class PanelCompare extends JPanel implements ActionListener {
 	JButton btn;
 	
 	public PanelCompare() {
-		btn = new JButton("∫Ò±≥");
+		btn = new JButton("ÎπÑÍµê");
 		add(btn);
 		
 		btn.addActionListener(this);
@@ -22,7 +22,7 @@ public class PanelCompare extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		switch (e.getActionCommand()) {
 		
-		case "∫Ò±≥" :
+		case "ÎπÑÍµê" :
 			if(frGraph == null) {
 				frGraph = new FrameGraph();
 			} else {

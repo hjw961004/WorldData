@@ -10,8 +10,8 @@ import javax.swing.JFrame;
 public class FrameSubKeyword extends JFrame implements ActionListener{
 	JButton btn1, btn2, btn3;
 	
-	public FrameSubKeyword(int code) {
-		super("Ä«Å×°í¸®");
+	public FrameSubKeyword(int code, String str) {
+		super(str);
 		setSize(400,80);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -21,9 +21,9 @@ public class FrameSubKeyword extends JFrame implements ActionListener{
 		switch(code) {
 		
 		case 1 :
-			btn1 = new JButton("¿Â´ë");
-			btn2 = new JButton("¿­´ë");
-			btn3 = new JButton("ÇÑ´ë");
+			btn1 = new JButton("ì—´ëŒ€");
+			btn2 = new JButton("ì˜¨ëŒ€");
+			btn3 = new JButton("ëƒ‰ëŒ€");
 			
 			this.add(btn1);
 			this.add(btn2);
@@ -31,9 +31,9 @@ public class FrameSubKeyword extends JFrame implements ActionListener{
 			break;
 			
 		case 2 :
-			btn1 = new JButton("±âµ¶±³");
-			btn2 = new JButton("ºÒ±³");
-			btn3 = new JButton("ÀÌ½½¶÷");
+			btn1 = new JButton("ê¸°ë…êµ");
+			btn2 = new JButton("ë¶ˆêµ");
+			btn3 = new JButton("ì´ìŠ¬ëŒ");
 			
 			this.add(btn1);
 			this.add(btn2);
@@ -41,9 +41,9 @@ public class FrameSubKeyword extends JFrame implements ActionListener{
 			break;
 			
 		case 3 :
-			btn1 = new JButton("¿µ¾î");
-			btn2 = new JButton("Áß±¹¾î");
-			btn3 = new JButton("ÈùµÎ¾î");
+			btn1 = new JButton("ì˜ì–´");
+			btn2 = new JButton("ì¤‘êµ­ì–´");
+			btn3 = new JButton("ì•„ëì–´");
 			
 			this.add(btn1);
 			this.add(btn2);

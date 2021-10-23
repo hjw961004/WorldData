@@ -9,7 +9,7 @@ public class FrameMain extends JFrame {
 	PanelCompare pnCompare;
 	
 	public FrameMain(){
-		setTitle("ºº∞Ë µ•¿Ã≈Õ");
+		setTitle("World Data");
 		setSize(1120,800);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -19,8 +19,8 @@ public class FrameMain extends JFrame {
 		pnWorld = new PanelWorld();
 		pnCompare = new PanelCompare();
 		
-		pane.addTab("∏ﬁ¿Œ»≠∏È", pnWorld);
-		pane.addTab("∫Ò±≥", pnCompare);
+		pane.addTab("Î©îÏù∏ ÌôîÎ©¥", pnWorld);
+		pane.addTab("ÎπÑÍµê", pnCompare);
 		
 		this.add(pane);
 	
