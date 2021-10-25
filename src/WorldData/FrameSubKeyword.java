@@ -67,7 +67,6 @@ public class FrameSubKeyword extends JFrame implements ActionListener{
 		switch(e.getActionCommand()) {
 		
 		case "기독교":
-			new List();
 			dispose();
 			break;
 		default:
