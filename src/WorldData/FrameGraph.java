@@ -46,6 +46,7 @@ public class FrameGraph extends JFrame implements ActionListener{
 	}
 }
 
+
 class DrawingPanel extends JPanel{
 	int korea = 100, america = 50, japan = 20;
 	
