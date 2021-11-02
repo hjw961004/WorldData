@@ -64,7 +64,15 @@ public class FrameSubKeyword extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		dispose();
+		switch(e.getActionCommand()) {
+		
+		case "기독교":
+			dispose();
+			break;
+		default:
+			dispose();
+			break;
+		}
 	}
 
 }
