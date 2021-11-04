@@ -104,7 +104,6 @@ public class FrameGraph extends JFrame implements ActionListener{
 
 
 class DrawingPanel extends JPanel{
-	int korea = 100, america = 50, japan = 20;
 	int Sx = 30, Rx = 700, Sy = 30, Ry = 500;
 	
 	String infoName1, infoName2, infoName3;
@@ -138,6 +137,11 @@ class DrawingPanel extends JPanel{
 		
 		pArea1 = (int) Math.round(infoArea1 / maxArea * 100);
 		pArea2 = (int) Math.round(infoArea2 / maxArea * 100);
+		
+		if (pArea1 == 0) 
+			pArea1++;
+		if (pArea2 == 0)
+			pArea2++;
 	}
 	
 	public DrawingPanel(String n1, double a1, String n2, double a2, String n3, double a3) {
@@ -164,6 +168,13 @@ class DrawingPanel extends JPanel{
 		pArea1 = (int) Math.round(infoArea1 / maxArea * 100);
 		pArea2 = (int) Math.round(infoArea2 / maxArea * 100);
 		pArea3 = (int) Math.round(infoArea3 / maxArea * 100);
+		
+		if (pArea1 == 0) 
+			pArea1++;
+		if (pArea2 == 0)
+			pArea2++;
+		if (pArea3 == 0)
+			pArea3++;
 	}
 	
 	public void paint(Graphics g){
@@ -187,6 +198,8 @@ class DrawingPanel extends JPanel{
 				g.drawLine(Sx+50, Sy+Ry-50-40*cnt, Sx+Rx-50, Sy+Ry-50-40*cnt);
 			}
 			
+			g.drawString("Km^2", Sx+Rx-80, Sy+Ry-30);
+			
 			g.drawString(infoName1 + "(" + infoArea1 + ")" , Sx+50+120, Sy+Ry-30);
 			g.drawString(infoName2 + "(" + infoArea2 + ")", Sx+50+270, Sy+Ry-30);
 			
@@ -201,6 +214,8 @@ class DrawingPanel extends JPanel{
 				g.drawString(cnt *10 +"%", Sx+15, Sy+Ry-45-40*cnt);
 				g.drawLine(Sx+50, Sy+Ry-50-40*cnt, Sx+Rx-50, Sy+Ry-50-40*cnt);
 			}
+			
+			g.drawString("Km^2", Sx+Rx-80, Sy+Ry-30);
 			
 			g.drawString(infoName1 + "(" + infoArea1 + ")" , Sx+50+120, Sy+Ry-30);
 			g.drawString(infoName2 + "(" + infoArea2 + ")", Sx+50+270, Sy+Ry-30);
