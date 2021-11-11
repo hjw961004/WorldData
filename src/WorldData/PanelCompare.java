@@ -5,11 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class PanelCompare extends JPanel implements ActionListener {
+	String fdata[] = {"가나","GH","아크라","열대성","서부아프리카","쿠마시","기독교","Akan","45.40","영어"};
+	String sdata[] = {"가봉","GA","리브르빌","열대성","아프리카적도","포트장틸","기독교","null","2000","불어"};
+	String tdata[] = {"가나","GH","아크라","열대성","서부아프리카","쿠마시","기독교","Akan","20000000","영어"};
 	
 	FrameGraph frGraph = null;
 	
@@ -39,7 +41,6 @@ public class PanelCompare extends JPanel implements ActionListener {
 		JLabel firstList[] = new JLabel[10];
 		JPanel firstPanel = new JPanel(); 
 		JButton firstDelete = new JButton("삭제");
-		String fdata[ ] = {"가나","GH","아크라","열대성","서부아프리카","쿠마시","기독교","Akan","227540","영어"};
 		for(int k=0; k<=9; k++) {
 			firstList[k] = new JLabel(fdata[k]);
 			firstPanel.add(firstList[k]);
@@ -55,7 +56,6 @@ public class PanelCompare extends JPanel implements ActionListener {
 		JLabel secondList[] = new JLabel[10];
 		JPanel secondPanel = new JPanel(); 
 		JButton secondDelete = new JButton("삭제");
-		String sdata[ ] = {"가봉","GA","리브르빌","열대성","아프리카적도","포트장틸","기독교","null","257670","불어"};
 		for(int k=0; k<=9; k++) {
 			secondList[k] = new JLabel(sdata[k]);
 			secondPanel.add(secondList[k]);
@@ -71,7 +71,6 @@ public class PanelCompare extends JPanel implements ActionListener {
 		JLabel thirdList[] = new JLabel[10];
 		JPanel thirdPanel = new JPanel(); 
 		JButton thirdDelete = new JButton("삭제");
-		String tdata[ ] = {"가나","GH","아크라","열대성","서부아프리카","쿠마시","기독교","Akan","22790","영어"};
 		for(int k=0; k<=9; k++) {
 			thirdList[k] = new JLabel(tdata[k]);
 			thirdPanel.add(thirdList[k]);
@@ -103,10 +102,22 @@ public class PanelCompare extends JPanel implements ActionListener {
 		
 		case "그래픽 비교" :
 			if(frGraph == null) {
-				frGraph = new FrameGraph();
+				// 비교 값이 없을 때
+				//frGraph = new FrameGraph();
+				// 비교 값이 1개 일때
+				//frGraph = new FrameGraph(fdata[0], Double.parseDouble(fdata[8]));
+				// 비교 값이 2개 일때
+				//frGraph = new FrameGraph(fdata[0], Double.parseDouble(fdata[8]), sdata[0], Double.parseDouble(sdata[8]));
+				// 비교 값이 3개 일때
+				frGraph = new FrameGraph(fdata[0], Double.parseDouble(fdata[8]), sdata[0], Double.parseDouble(sdata[8])
+						, tdata[0], Double.parseDouble(tdata[8]));
 			} else {
 				frGraph.dispose();
-				frGraph = new FrameGraph();
+				//frGraph = new FrameGraph();
+				//frGraph = new FrameGraph(fdata[0], Double.parseDouble(fdata[8]));
+				//frGraph = new FrameGraph(fdata[0], Double.parseDouble(fdata[8]), sdata[0], Double.parseDouble(sdata[8]));
+				frGraph = new FrameGraph(fdata[0], Double.parseDouble(fdata[8]), sdata[0], Double.parseDouble(sdata[8])
+						, tdata[0], Double.parseDouble(tdata[8]));
 			}
 			break;
 			
