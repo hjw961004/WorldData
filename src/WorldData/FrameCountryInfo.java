@@ -1,27 +1,17 @@
 package WorldData;
 
-import java.awt.BorderLayout;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.awt.Desktop;
-import java.awt.EventQueue;
 
-import javax.swing.JTabbedPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
 
-import javax.swing.JSplitPane;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.JSlider;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -220,8 +210,11 @@ public class FrameCountryInfo extends JFrame implements ActionListener {
 			case "정보 비교":
 				if(Main.countryList.size() >= 3) 
 					System.out.println("리스트를 삭제 후 넣어주세요.");
-				else 
+				else {
 					Main.countryList.add(data);
+					Main.MF.pnCompare.validate();
+					Main.MF.pnCompare.repaint();
+				}
 				break;
 			case "CSV":
 				try {

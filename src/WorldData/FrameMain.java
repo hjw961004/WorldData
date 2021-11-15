@@ -6,7 +6,7 @@ public class FrameMain extends JFrame {
 
 	JTabbedPane pane;
 	PanelWorld pnWorld;
-	PanelCompare pnCompare;
+	public PanelCompare pnCompare;
 	
 	public FrameMain(){
 		setTitle("World Data");
