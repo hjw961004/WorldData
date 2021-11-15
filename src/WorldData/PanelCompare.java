@@ -23,6 +23,7 @@ public class PanelCompare extends JPanel implements ActionListener {
 	Info secondInfo= new Info();
 	Info thirdInfo= new Info();
 	
+	
 	public PanelCompare() {
 		
 		grd = new GridLayout(0,4);
@@ -33,7 +34,7 @@ public class PanelCompare extends JPanel implements ActionListener {
 		if(Main.countryList.isEmpty()) {
 			
 		}
-		if(Main.countryList.size()==1) {
+		else if(Main.countryList.size()==1) {
 			firstInfo = Main.countryList.get(0);
 		}
 		else if(Main.countryList.size()==2) {
@@ -118,20 +119,20 @@ public class PanelCompare extends JPanel implements ActionListener {
 	}
 	
 	//현재 비교대상 국가들의 수에 따라 국가패널생성
-		public void countryset() {
-			if(Main.countryList.size()==1) {
-				add(firstPanel);
-			}
-			else if(Main.countryList.size()==2) {
-				add(firstPanel);
-				add(secondPanel);
-			}
-			else if(Main.countryList.size()==3) {
-				add(firstPanel);
-				add(secondPanel);
-				add(thirdPanel);
-			}
+	public void countryset() {
+		if(Main.countryList.size()==1) {
+			add(firstPanel);
 		}
+		else if(Main.countryList.size()==2) {
+			add(firstPanel);
+			add(secondPanel);
+		}
+		else if(Main.countryList.size()==3) {
+			add(firstPanel);
+			add(secondPanel);
+			add(thirdPanel);
+		}
+	}
 		
 
 	@Override
@@ -145,11 +146,11 @@ public class PanelCompare extends JPanel implements ActionListener {
 					frGraph = new FrameGraph();
 				
 				else if(Main.countryList.size() == 2) 
-					frGraph = new FrameGraph(firstInfo.name, Double.parseDouble(firstInfo.area), secondInfo.name, Double.parseDouble(secondInfo.area));
+					frGraph = new FrameGraph(firstInfo.name, Integer.parseInt(firstInfo.area), secondInfo.name, Integer.parseInt(secondInfo.area));
 				
 				else if(Main.countryList.size() == 3) 
-					frGraph = new FrameGraph(firstInfo.name, Double.parseDouble(firstInfo.area), secondInfo.name, Double.parseDouble(secondInfo.area)
-							, thirdInfo.name, Double.parseDouble(thirdInfo.area));
+					frGraph = new FrameGraph(firstInfo.name, Integer.parseInt(firstInfo.area), secondInfo.name, Integer.parseInt(secondInfo.area)
+							, thirdInfo.name, Integer.parseInt(thirdInfo.area));
 				
 			} else {
 				frGraph.dispose();
