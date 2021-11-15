@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class FrameCountryList extends JFrame{
+
+	static JFrame jFrame;
 	public static final int COUNTRY_COUNT_MAX = 228;
 	
 	static ActionListener listener = new ActionListener() {
@@ -19,6 +21,7 @@ public class FrameCountryList extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			new FrameCountryInfo(e.getActionCommand());
+			jFrame.dispose();
 		}
 		
 	};
@@ -28,12 +31,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 대륙 = '아시아'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[45];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[45];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(9, 5, 10, 10));
 		
@@ -74,12 +79,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 대륙 = '유럽'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[56];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[56];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(12, 5, 10, 10));
 		
@@ -121,12 +128,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 대륙 = '아프리카'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[59];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[59];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(12, 5, 10, 10));
 		
@@ -169,7 +178,7 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 대륙 = '북미'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[7];
 		int index = 0;
@@ -217,12 +226,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 대륙 = '남미'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[40];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[40];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(8, 5, 10, 10));
 		
@@ -265,12 +276,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 대륙 = '오세아니아'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[20];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[20];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(5, 4, 10, 10));
 		
@@ -313,12 +326,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 기후데이터 like '%열대%'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[144];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[144];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(24, 6, 10, 10));
 		
@@ -361,12 +376,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 기후데이터 like '%온대%'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[57];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[57];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(12, 5, 10, 10));
 		
@@ -409,12 +426,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 기후데이터 like '%냉대%'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[16];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[16];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(6, 3, 10, 10));
 		
@@ -457,12 +476,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 기후데이터 like '%건조%'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[41];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[41];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(11, 4, 10, 10));
 		
@@ -505,12 +526,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 종교데이터 like '%기독교%'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[76];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[76];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(16, 5, 10, 10));
 		
@@ -553,12 +576,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 종교데이터 like '%불교%'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[16];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[16];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(6, 3, 10, 10));
 		
@@ -601,12 +626,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 종교데이터 like '%이슬람교%'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[75];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[75];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(15, 5, 10, 10));
 		
@@ -649,12 +676,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 종교데이터 like '%힌두교%'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[16];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[16];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(6, 3, 10, 10));
 		
@@ -697,12 +726,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 종교데이터 like '%기타%'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[95];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[95];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(19, 5, 10, 10));
 		
@@ -745,12 +776,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 언어데이터 like '%영어%'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[77];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[77];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(16, 5, 10, 10));
 		
@@ -793,12 +826,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 언어데이터 like '%스페인어%'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[14];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[14];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(7, 2, 10, 10));
 		
@@ -841,12 +876,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 언어데이터 like '%불어%'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[37];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[37];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(10, 4, 10, 10));
 		
@@ -889,12 +926,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 언어데이터 like '%아랍어%'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[26];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[26];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(9, 3, 10, 10));
 		
@@ -937,12 +976,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 언어데이터 like '%기타%'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[112];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[112];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		jFrame.setLayout(new GridLayout(23, 5, 10, 10));
 		
@@ -984,12 +1025,14 @@ public class FrameCountryList extends JFrame{
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where * like '%" + keyword + "%'";
 		
-		JFrame jFrame = new JFrame();
+		jFrame = new JFrame();
 		String country = "";
 		String[] countryList = new String[COUNTRY_COUNT_MAX];
 		int index = 0;
 		JButton btn;
 		JButton[] btnList = new JButton[COUNTRY_COUNT_MAX];
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
 		
 		try {
 			

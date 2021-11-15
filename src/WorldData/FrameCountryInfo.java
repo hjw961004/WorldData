@@ -34,14 +34,15 @@ public class FrameCountryInfo extends JFrame implements ActionListener {
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM" + " test where name = " + countryName;
+		String sql = "SELECT * from country_data where 국가 = '" + countryName +"'";
 
 		try {
 			
 			ps = Main.dbM.con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			rs.next();
-			data = new Info(rs.getString("name"), rs.getString("code"), rs.getString("capital"), rs.getString("weather"), rs.getString("location"), rs.getString("religion"), rs.getString("area"), rs.getString("language"));
+			data = new Info(rs.getString("국가"), rs.getString("국가코드(ISO 2자리 코드)"), rs.getString("수도")
+					, rs.getString("기후"), rs.getString("위치"), rs.getString("종교"), rs.getString("면적(㎢)"), rs.getString("언어"));
 			
 		} catch(SQLException e) {
 			
@@ -212,8 +213,9 @@ public class FrameCountryInfo extends JFrame implements ActionListener {
 					System.out.println("리스트를 삭제 후 넣어주세요.");
 				else {
 					Main.countryList.add(data);
-					Main.MF.pnCompare.validate();
-					Main.MF.pnCompare.repaint();
+					Main.MF.dispose();
+					Main.MF = new FrameMain();
+					dispose();
 				}
 				break;
 			case "CSV":
