@@ -20,39 +20,87 @@ public class PanelMap extends JPanel implements ActionListener {
 		imageIcon = new ImageIcon(Main.class.getResource("../image/worldmap2.PNG"));
 		image = imageIcon.getImage();
 		this.setLayout(null);
-		
+
+		JButton AS = new JButton("아시아");
 		JButton EU = new JButton("유럽");
 		JButton AF = new JButton("아프리카");
-			
+		JButton NA = new JButton("북미");
+		JButton SA = new JButton("남미");
+		JButton OC = new JButton("오세아니아");
+
+		AS.setBounds(700, 170, 200, 200);
+		AS.setBorderPainted(false);
+		AS.setContentAreaFilled(false);
+		AS.setFocusPainted(false);
 
 		EU.setBounds(500, 160, 130, 130);
-		//EU.setBorderPainted(false);
+		EU.setBorderPainted(false);
 		EU.setContentAreaFilled(false);
 		EU.setFocusPainted(false);
 		
 		AF.setBounds(470, 300, 180, 180);
-		//AF.setBorderPainted(false);
+		AF.setBorderPainted(false);
 		AF.setContentAreaFilled(false);
 		AF.setFocusPainted(false);
 		
+		NA.setBounds(170, 120, 200, 200);
+		NA.setBorderPainted(false);
+		NA.setContentAreaFilled(false);
+		NA.setFocusPainted(false);
 		
+		SA.setBounds(270, 340, 170, 170);
+		SA.setBorderPainted(false);
+		SA.setContentAreaFilled(false);
+		SA.setFocusPainted(false);
+		
+		OC.setBounds(830, 380, 130, 130);
+		OC.setBorderPainted(false);
+		OC.setContentAreaFilled(false);
+		OC.setFocusPainted(false);
+
+		this.add(AS);
 		this.add(EU);
 		this.add(AF);
-		
+		this.add(NA);
+		this.add(SA);
+		this.add(OC);
+
+		AS.addActionListener(this);
 		EU.addActionListener(this);
 		AF.addActionListener(this);
+		NA.addActionListener(this);
+		SA.addActionListener(this);
+		OC.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		switch(e.getActionCommand()) {
-		
+
+		case "아시아" :
+			System.out.print("아시아");
+			FrameCountryList.asiaList();
+			break;
 		case "유럽" :
 			System.out.print("유럽");
+			FrameCountryList.europeList();
 			break;
 		case "아프리카" :
 			System.out.print("아프리카");
+			FrameCountryList.africaList();
+			break;
+		case "북미" :
+			System.out.print("북미");
+			FrameCountryList.northAmericaList();
+			break;
+		case "남미" :
+			System.out.print("남미");
+			FrameCountryList.southAmericaList();
+			break;
+		case "오세아니아" :
+			System.out.print("오세아니아");
+			FrameCountryList.oceaniaList();
 			break;
 		default :
 			break;		
