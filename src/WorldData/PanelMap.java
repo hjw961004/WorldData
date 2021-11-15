@@ -81,6 +81,7 @@ public class PanelMap extends JPanel implements ActionListener {
 		case "아시아" :
 			System.out.print("아시아");
 			FrameCountryList.asiaList();
+			break;
 		case "유럽" :
 			System.out.print("유럽");
 			FrameCountryList.europeList();

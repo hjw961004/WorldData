@@ -7,12 +7,23 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FrameCountryList extends JFrame{
 	public static final int COUNTRY_COUNT_MAX = 228;
+	
+	static ActionListener listener = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			new FrameCountryInfo(e.getActionCommand());
+		}
+		
+	};
 
 	public static void asiaList() {
-		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 대륙 = '아시아'";
@@ -38,6 +49,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -55,11 +67,9 @@ public class FrameCountryList extends JFrame{
 		jFrame.setSize(800, 400);
 		jFrame.setVisible(true);
 		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
 	}
 	
 	public static void europeList() {
-		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String sql = "select 국가 from country_data where 대륙 = '유럽'";
@@ -85,6 +95,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -102,7 +113,6 @@ public class FrameCountryList extends JFrame{
 		jFrame.setSize(900, 700);
 		jFrame.setVisible(true);
 		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
 	}
 	
 	public static void africaList() {
@@ -132,6 +142,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -179,6 +190,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -226,6 +238,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -273,6 +286,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -320,6 +334,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -367,6 +382,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -414,6 +430,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -461,6 +478,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -508,6 +526,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -555,6 +574,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -602,6 +622,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -649,6 +670,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -696,6 +718,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -743,6 +766,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -790,6 +814,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -837,6 +862,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -884,6 +910,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -931,6 +958,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
@@ -975,6 +1003,7 @@ public class FrameCountryList extends JFrame{
 				
 				btn = new JButton(country);
 				btnList[index] = btn;
+				btn.addActionListener(listener);
 				
 				jFrame.add(btnList[index]);
 				
