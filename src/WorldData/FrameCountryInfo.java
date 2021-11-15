@@ -51,7 +51,7 @@ public class FrameCountryInfo extends JFrame implements ActionListener {
 			ps = Main.dbM.con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			rs.next();
-			data = new Info(rs.getString("name"), rs.getString("code"), rs.getString("capital"), rs.getString("weather"), rs.getString("location"), rs.getString("main_city"), rs.getString("religion"), rs.getString("race"), rs.getString("area"), rs.getString("language"));
+			data = new Info(rs.getString("name"), rs.getString("code"), rs.getString("capital"), rs.getString("weather"), rs.getString("location"), rs.getString("religion"), rs.getString("area"), rs.getString("language"));
 			
 		} catch(SQLException e) {
 			
