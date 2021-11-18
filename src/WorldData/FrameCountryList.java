@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 
 public class FrameCountryList extends JFrame{
 
+	static String name;
+	
 	static JFrame jFrame;
 	public static final int COUNTRY_COUNT_MAX = 228;
 	
@@ -20,6 +22,7 @@ public class FrameCountryList extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			name=e.getActionCommand();
 			new FrameCountryInfo(e.getActionCommand());
 			jFrame.dispose();
 		}

@@ -3,11 +3,19 @@ package WorldData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.awt.BorderLayout;
 import java.awt.Desktop;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -15,11 +23,15 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.swing.JButton;
 import java.awt.FlowLayout;
+
 
 
 public class FrameCountryInfo extends JFrame implements ActionListener {
@@ -29,13 +41,18 @@ public class FrameCountryInfo extends JFrame implements ActionListener {
 
 	JButton btnNewButton;
 	JButton btnCsv;
+	JButton btnBack;
+	
+	Statement stmt;
 	
 	public FrameCountryInfo(String countryName) {
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String sql = "SELECT * from country_data where 국가 = '" + countryName +"'";
-
+		
+		
+		
 		try {
 			
 			ps = Main.dbM.con.prepareStatement(sql);
@@ -49,6 +66,73 @@ public class FrameCountryInfo extends JFrame implements ActionListener {
 			e.printStackTrace();
 			
 		}
+		
+		//정보 넘치는 것을 방지하기 위해 문자열 자름
+		
+		if(data.capital.indexOf("(")>=0) {
+			String CapResult = data.capital.substring(0,data.capital.indexOf("("));
+			data.capital=CapResult;					
+		}
+		if(data.capital.indexOf(";")>=0) {
+			String CapResult = data.capital.substring(0,data.capital.indexOf(";"));
+			data.capital=CapResult;		
+		}
+		if (data.weather.indexOf("(")>=0 ) {
+			String WeathResult = data.weather.substring(0,data.weather.indexOf("("));
+			data.weather=WeathResult;					
+		}
+		if(data.weather.indexOf(";")>=0) {
+			String WeathResult = data.weather.substring(0,data.weather.indexOf(";"));
+			data.weather=WeathResult;									
+		}
+		if (data.location.indexOf("(")>=0) {
+			String LocaResult = data.location.substring(0,data.location.indexOf("("));
+			data.location=LocaResult;
+		}
+		if (data.location.indexOf(";")>=0) {
+			String LocaResult = data.location.substring(0,data.location.indexOf(";"));
+			data.location=LocaResult;					
+		}
+		if (data.religion.indexOf("(")>=0) {
+			String ReligResult = data.religion.substring(0,data.religion.indexOf("("));
+			data.religion=ReligResult;
+		}
+		if (data.religion.indexOf(";")>=0) {
+			String ReligResult = data.religion.substring(0,data.religion.indexOf(";"));
+			data.religion=ReligResult;					
+		}
+		if (data.area.indexOf("(")>=0) {
+			String AreaResult = data.area.substring(0,data.area.indexOf("("));
+			data.area=AreaResult;
+		}
+		if (data.area.indexOf(";")>=0) {
+			String AreaResult = data.area.substring(0,data.area.indexOf(";"));
+			data.area=AreaResult;					
+		}
+		if (data.language.indexOf("(")>=0) {
+			String LanResult = data.language.substring(0,data.language.indexOf("("));
+			data.language=LanResult;
+		}
+		if (data.language.indexOf(";")>=0) {
+			String LanResult = data.language.substring(0,data.language.indexOf(";"));
+			data.language=LanResult;					
+		}
+		/*if (data.mainCity.indexOf("(")>=0) {
+			String CityResult = data.mainCity.substring(0,data.mainCity.indexOf("("));
+			data.mainCity=CityResult;					
+		}
+		if (data.mainCity.indexOf(";")>=0) {
+			String CityResult = data.mainCity.substring(0,data.mainCity.indexOf(";"));
+			data.mainCity=CityResult;	
+		}*/
+		/*if (data.race.indexOf("(")>=0) {
+			String RaceResult = data.race.substring(0,data.race.indexOf("("));
+			data.race=RaceResult;
+		}
+		if (data.race.indexOf(";")>=0) {
+			String RaceResult = data.race.substring(0,data.race.indexOf(";"));
+			data.race=RaceResult;					
+		}*/
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("국가 정보");
@@ -195,35 +279,48 @@ public class FrameCountryInfo extends JFrame implements ActionListener {
 
 		btnNewButton.addActionListener(this);
 		
-		btnCsv = new JButton("CSV");
+		btnCsv = new JButton("상세 정보(CSV)");
 		btnCsv.setVerticalAlignment(SwingConstants.BOTTOM);
 		panel_5.add(btnCsv);
 		
 		btnCsv.addActionListener(this);
 		
+		btnBack = new JButton("뒤로가기");
+		btnBack.setVerticalAlignment(SwingConstants.BOTTOM);
+		panel_5.add(btnBack);
+		
+		btnBack.addActionListener(this);
+		
 		setVisible(true);
+			
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		
 		switch(e.getActionCommand()) {
 			case "정보 비교":
 				if(Main.countryList.size() >= 3) 
 					System.out.println("리스트를 삭제 후 넣어주세요.");
-				else {
+				else {					
 					Main.countryList.add(data);
 					Main.MF.dispose();
 					Main.MF = new FrameMain();
 					dispose();
 				}
 				break;
-			case "CSV":
-				try {
-					Desktop.getDesktop().edit(new File("C:\\test.csv"));			
+			case "상세 정보(CSV)":				
+				/*try {
+					Desktop.getDesktop().edit(new File("C:\\국가 파일.csv"));			
+
 				}catch(IOException e1) {
 					e1.printStackTrace();			
-				}
+				}*/
+				new Data_list(stmt);				
+				break;
+			case "뒤로가기" :
+				dispose();
 				break;
 			default :
 				break;
@@ -231,3 +328,76 @@ public class FrameCountryInfo extends JFrame implements ActionListener {
 	}
 
 }
+
+class Data_list extends JFrame{
+	
+	Statement stmt;
+	
+	public Data_list(Statement stmt) {
+		
+		this.stmt=stmt;
+		String sql="SELECT * from country_data where 국가 = '" + FrameCountryList.name +"'";
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		Dimension dim = new Dimension(600,300);
+		
+		JFrame frame = new JFrame("국가 상세정보(CSV)");
+		frame.setLocation(200,400);
+		frame.setPreferredSize(dim);
+		
+		String header[] = {"분류", "내용"};
+		try {
+			ps = Main.dbM.con.prepareStatement(sql);
+			rs = ps.executeQuery();		
+			rs.next();
+			String contents[][] = {
+					{"국가", rs.getString("국가")},
+					{"국가코드", rs.getString("국가코드(ISO 2자리 코드)")},
+					{"수도", rs.getString("수도")},
+					{"기후", rs.getString("기후")},
+					{"위치", rs.getString("위치")},
+					{"주요도시", rs.getString("주요도시")},
+					{"종교", rs.getString("종교")},
+					{"주요민족", rs.getString("주요민족")},
+					{"언론", rs.getString("언론")},
+					{"면적", rs.getString("면적(㎢)")},
+					{"면적출처", rs.getString("면적출처")},
+					{"면적설명", rs.getString("면적설명")},
+					{"언어", rs.getString("언어")},
+					{"기준년도", rs.getString("기준년도")},
+					{"대륙", rs.getString("대륙")},
+					{"기후데이터", rs.getString("기후데이터")},
+					{"종교데이터", rs.getString("종교데이터")},
+					{"언어데이터", rs.getString("언어데이터")}
+			};		
+
+			//DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
+			JTable table = new JTable(contents, header);
+			//JScrollPane scrollpane = new JScrollPane(table);
+
+			JScrollPane scrollpane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+			/*table.getColumn("분류").setPreferredWidth(1);
+			table.getColumn("분류").setCellRenderer(celAlignCenter);
+			table.getColumn("내용").setPreferredWidth(100);
+			table.getColumn("내용").setCellRenderer(celAlignCenter);*/
+
+	        table.getColumnModel().getColumn(0).setMaxWidth(80);
+	        table.getColumnModel().getColumn(0).setMinWidth(50);
+	        table.getColumnModel().getColumn(0).setWidth(80);
+			frame.add(scrollpane);
+			frame.pack();
+			frame.setVisible(true);
+		}catch(SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+				
+		
+		
+	}			
+}
+
+
+

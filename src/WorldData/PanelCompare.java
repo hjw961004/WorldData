@@ -54,7 +54,7 @@ public class PanelCompare extends JPanel implements ActionListener {
 		for(int k=0; k<=7; k++) {
 			infoList[k] = new JLabel(info[k]);
 			infoPanel.add(infoList[k]);
-			infoList[k].setPreferredSize(new java.awt.Dimension(200,50));
+			infoList[k].setPreferredSize(new java.awt.Dimension(250,50));
 			infoList[k].setHorizontalAlignment(JLabel.CENTER);
 		}
 		//grapic버튼 생성
@@ -68,7 +68,7 @@ public class PanelCompare extends JPanel implements ActionListener {
 		for(int k=0; k<=7; k++) {
 			firstList[k] = new JLabel(fdata[k]);
 			firstPanel.add(firstList[k]);
-			firstList[k].setPreferredSize(new java.awt.Dimension(200,50));
+			firstList[k].setPreferredSize(new java.awt.Dimension(250,50));
 			firstList[k].setHorizontalAlignment(JLabel.CENTER);
 			firstList[k].setOpaque(true);
 			firstList[k].setBackground(Color.WHITE);
@@ -84,7 +84,7 @@ public class PanelCompare extends JPanel implements ActionListener {
 		for(int k=0; k<=7; k++) {
 			secondList[k] = new JLabel(sdata[k]);
 			secondPanel.add(secondList[k]);
-			secondList[k].setPreferredSize(new java.awt.Dimension(200,50));
+			secondList[k].setPreferredSize(new java.awt.Dimension(250,50));
 			secondList[k].setHorizontalAlignment(JLabel.CENTER);
 			secondList[k].setOpaque(true);
 			secondList[k].setBackground(Color.WHITE);
@@ -100,7 +100,7 @@ public class PanelCompare extends JPanel implements ActionListener {
 		for(int k=0; k<=7; k++) {
 			thirdList[k] = new JLabel(tdata[k]);
 			thirdPanel.add(thirdList[k]);
-			thirdList[k].setPreferredSize(new java.awt.Dimension(200,50));
+			thirdList[k].setPreferredSize(new java.awt.Dimension(250,50));
 			thirdList[k].setHorizontalAlignment(JLabel.CENTER);
 			thirdList[k].setOpaque(true);
 			thirdList[k].setBackground(Color.WHITE);
