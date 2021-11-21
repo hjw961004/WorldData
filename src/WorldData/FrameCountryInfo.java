@@ -50,27 +50,15 @@ public class FrameCountryInfo extends JFrame implements ActionListener {
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-<<<<<<< Updated upstream
-		String sql = "SELECT * from country_data where 국가 = '" + countryName +"'";
-		
-		
-		
-=======
 		String sql = "SELECT * FROM" + " country_data where 국가 = '" + countryName+"'";
 
->>>>>>> Stashed changes
 		try {
 			
 			ps = Main.dbM.con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			rs.next();
-<<<<<<< Updated upstream
 			data = new Info(rs.getString("국가"), rs.getString("국가코드(ISO 2자리 코드)"), rs.getString("수도")
 					, rs.getString("기후"), rs.getString("위치"), rs.getString("종교"), rs.getString("면적(㎢)"), rs.getString("언어"));
-=======
-			//data = new Info(rs.getString("name"), rs.getString("code"), rs.getString("capital"), rs.getString("weather"), rs.getString("location"), rs.getString("religion"), rs.getString("area"), rs.getString("language"));
-			data = new Info(rs.getString("국가"), rs.getString("국가코드(ISO 2자리 코드)"), rs.getString("수도"), rs.getString("기후"), rs.getString("위치"), rs.getString("종교"), rs.getString("면적(㎢)"), rs.getString("언어"));
->>>>>>> Stashed changes
 			
 		} catch(SQLException e) {
 			
