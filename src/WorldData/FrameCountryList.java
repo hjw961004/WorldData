@@ -4,1071 +4,146 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
-public class FrameCountryList extends JFrame{
-
+public class FrameCountryList extends JFrame {
+	FrameCountryList frameCountryList;
 	static String name;
+	JFrame jFrame;
+	JList jList; //리스트
+	DefaultListModel<String> listModel = new DefaultListModel<>(); //리스트에 넣을 리스트모델(국가)
+	JButton backButton;
 	
-	static JFrame jFrame;
-	public static final int COUNTRY_COUNT_MAX = 228;
+	public FrameCountryList() {}
+	public FrameCountryList(String _sql, String column, String keyword) {
+		jFrame = new JFrame();
+		String country = new String();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = new String();
+		
+		if(frameCountryList != null)
+			jFrame.dispose();
+		
+		if(_sql.equals(worldMapCountryList(keyword)))
+			sql = worldMapCountryList(keyword);
+		else if(_sql.equals(keywordCountryList(column, keyword)))
+			sql = keywordCountryList(column, keyword);
+		else
+			sql = totalSearchCountryList(keyword);
+		
+		try {
+			ps = Main.dbM.con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				country = rs.getString("국가"); //"국가"컬럼
+				listModel.addElement(country); //국가 추가
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		JPanel backButtonPanel = new JPanel(new BorderLayout());
+		backButton = new JButton("뒤로가기");
+		backButtonPanel.add(backButton);
+		jFrame.add(backButtonPanel, BorderLayout.NORTH);
+		backButton.addActionListener(actionListener);
+		
+		if(listModel.isEmpty()) {
+			JTextField noData = new JTextField("                                        "
+					+ "데이터가 존재하지 않습니다.");
+			JPanel jPanel = new JPanel();
+			jPanel.setLayout(new CardLayout());
+			jPanel.add(noData, BorderLayout.CENTER);
+			jFrame.add(jPanel, BorderLayout.CENTER);
+			jFrame.setTitle("국가-List");
+		}
+		else {
+			JPanel listPanel = new JPanel();
+			jList = new JList(listModel);
+			listPanel.setLayout(new CardLayout());
+			listPanel.add(jList, BorderLayout.CENTER);
+			jList.addListSelectionListener(listListener);
+			JScrollPane scrollBar = new JScrollPane(jList); //스크롤바
+			listPanel.add(scrollBar,"CENTER");
+			jFrame.add(listPanel, BorderLayout.CENTER);
+			jFrame.setTitle(keyword + " 국가-List");
+		}
+		
+		jFrame.setSize(400, 350);
+		jFrame.setResizable(false);
+		jFrame.setLocationRelativeTo(null);
+		jFrame.setVisible(true);
+		jFrame.addWindowListener(windowListener);
+	}
 	
-	static ActionListener listener = new ActionListener() {
-
+	ActionListener actionListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			name=e.getActionCommand();
-			new FrameCountryInfo(e.getActionCommand());
+			if(e.getActionCommand() == "뒤로가기")
+				jFrame.dispose();
+		}
+	};
+	
+	ListSelectionListener listListener = new ListSelectionListener() { //리스트모델이 클릭될 때
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+            if (!e.getValueIsAdjusting()) {
+            	name = String.valueOf(jList.getSelectedValue());
+            	new FrameCountryInfo(String.valueOf(jList.getSelectedValue())); //국가데이터 불러오기
+    			jFrame.dispose();
+            }
+        }
+	};
+	
+	WindowListener windowListener = new WindowListener() {
+		@Override
+		public void windowOpened(WindowEvent e) {
+		
+		}
+		@Override
+		public void windowClosing(WindowEvent e) {
+			listModel.clear();
 			jFrame.dispose();
 		}
-		
+		@Override
+		public void windowClosed(WindowEvent e) {}
+		@Override
+		public void windowIconified(WindowEvent e) {}
+		@Override
+		public void windowDeiconified(WindowEvent e) {}
+		@Override
+		public void windowActivated(WindowEvent e) {}
+		@Override
+		public void windowDeactivated(WindowEvent e) {}
 	};
-
-	public static void asiaList() {
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 대륙 = '아시아'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[45];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[45];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(9, 5, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("아시아 국가-List");
-		jFrame.setSize(800, 400);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	}
 	
-	public static void europeList() {
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 대륙 = '유럽'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[56];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[56];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(12, 5, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("유럽 국가-List");
-		jFrame.setSize(900, 700);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	}
-	
-	public static void africaList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 대륙 = '아프리카'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[59];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[59];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(12, 5, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("아프리카 국가-List");
-		jFrame.setSize(1300, 800);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	public static String worldMapCountryList(String keyword) {
+		String sql = "select 국가 from country_data where 대륙 = '" + keyword + "'";
+		return sql;
 		
 	}
 	
-	public static void northAmericaList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 대륙 = '북미'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[7];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[7];
-		
-		jFrame.setLayout(new GridLayout(3, 3, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("북아메리카 국가-List");
-		jFrame.setSize(500, 200);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+	public static String keywordCountryList(String column, String keyword) {
+		String sql = "select 국가 from country_data where " + column + " like '%" + keyword + "%'";
+		return sql;
 	}
 	
-	public static void southAmericaList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 대륙 = '남미'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[40];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[40];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(8, 5, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("남아메리카 국가-List");
-		jFrame.setSize(900, 400);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+	public static String totalSearchCountryList(String keyword) {
+		String sql = "select 국가 from country_data WHERE MATCH"
+				+ "(국가, 수도, 위치, 주요도시, 주요민족, 대륙, 기후데이터, 종교데이터, 언어데이터) AGAINST ('" + keyword + "')";
+		return sql;
 	}
-	
-	public static void oceaniaList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 대륙 = '오세아니아'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[20];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[20];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(5, 4, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("오세아니아 국가-List");
-		jFrame.setSize(650, 300);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-	}
-	
-	public static void tropicsList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 기후데이터 like '%열대%'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[144];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[144];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(24, 6, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("열대 국가-List");
-		jFrame.setSize(1000, 950);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-	}
-	
-	public static void temperateList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 기후데이터 like '%온대%'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[57];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[57];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(12, 5, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("온대 국가-List");
-		jFrame.setSize(900, 600);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-	}
-	
-	public static void coldList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 기후데이터 like '%냉대%'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[16];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[16];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(6, 3, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("냉대 국가-List");
-		jFrame.setSize(400, 300);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-	}
-	
-	public static void dryList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 기후데이터 like '%건조%'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[41];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[41];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(11, 4, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("건조 국가-List");
-		jFrame.setSize(1000, 600);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-	}
-	
-	public static void christianList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 종교데이터 like '%기독교%'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[76];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[76];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(16, 5, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("기독교 국가-List");
-		jFrame.setSize(900, 800);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-	}
-	
-	public static void buddhismList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 종교데이터 like '%불교%'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[16];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[16];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(6, 3, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("불교 국가-List");
-		jFrame.setSize(400, 300);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-	}
-	
-	public static void islamList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 종교데이터 like '%이슬람교%'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[75];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[75];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(15, 5, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("이슬람교 국가-List");
-		jFrame.setSize(1250, 800);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-	}
-	
-	public static void hinduismList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 종교데이터 like '%힌두교%'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[16];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[16];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(6, 3, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("힌두교 국가-List");
-		jFrame.setSize(500, 300);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-	}
-	
-	public static void religionEtcList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 종교데이터 like '%기타%'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[95];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[95];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(19, 5, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("종교(기타) 국가-List");
-		jFrame.setSize(900, 800);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-	}
-	
-	public static void englishList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 언어데이터 like '%영어%'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[77];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[77];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(16, 5, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("영어 국가-List");
-		jFrame.setSize(900, 800);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-	}
-	
-	public static void spanishList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 언어데이터 like '%스페인어%'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[14];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[14];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(7, 2, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("스페인어 국가-List");
-		jFrame.setSize(400, 300);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-	}
-	
-	public static void frenchList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 언어데이터 like '%불어%'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[37];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[37];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(10, 4, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("프랑스어 국가-List");
-		jFrame.setSize(800, 600);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-	}
-	
-	public static void arabicList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 언어데이터 like '%아랍어%'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[26];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[26];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(9, 3, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("아랍어 국가-List");
-		jFrame.setSize(450, 400);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-	}
-	
-	public static void languageEtcList() {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where 언어데이터 like '%기타%'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[112];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[112];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		jFrame.setLayout(new GridLayout(23, 5, 10, 10));
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setTitle("언어(기타)-List");
-		jFrame.setSize(1250, 900);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	}
-	
-	public static void countryList(String keyword) {
-		
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select 국가 from country_data where * like '%" + keyword + "%'";
-		
-		jFrame = new JFrame();
-		String country = "";
-		String[] countryList = new String[COUNTRY_COUNT_MAX];
-		int index = 0;
-		JButton btn;
-		JButton[] btnList = new JButton[COUNTRY_COUNT_MAX];
-		jFrame.setResizable(false);
-		jFrame.setLocationRelativeTo(null);
-		
-		try {
-			
-			ps = Main.dbM.con.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
-				country = rs.getString("국가");
-				countryList[index] = country;
-				
-				btn = new JButton(country);
-				btnList[index] = btn;
-				btn.addActionListener(listener);
-				
-				jFrame.add(btnList[index]);
-				
-				index++;
-				
-			}
-			
-		} catch(SQLException e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		jFrame.setLayout(new GridLayout(10, 10, 10, 10));
-		jFrame.setTitle("아시아 국가-List");
-		jFrame.setSize(800, 400);
-		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-	}
-
 }
+

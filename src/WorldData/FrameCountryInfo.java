@@ -4,8 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.awt.BorderLayout;
-import java.awt.Desktop;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -13,22 +11,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-
 
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 import javax.swing.JButton;
 import java.awt.FlowLayout;
@@ -50,8 +41,10 @@ public class FrameCountryInfo extends JFrame implements ActionListener {
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM" + " country_data where 국가 = '" + countryName+"'";
-
+		String sql = "SELECT * from country_data where 국가 = '" + countryName +"'";
+		
+		
+		
 		try {
 			
 			ps = Main.dbM.con.prepareStatement(sql);
@@ -300,8 +293,10 @@ public class FrameCountryInfo extends JFrame implements ActionListener {
 		
 		switch(e.getActionCommand()) {
 			case "정보 비교":
-				if(Main.countryList.size() >= 3) 
+				if(Main.countryList.size() >= 3)  {
 					System.out.println("리스트를 삭제 후 넣어주세요.");
+					JOptionPane.showMessageDialog(null, "리스트를 삭제 후 넣어주세요");
+				}
 				else {					
 					Main.countryList.add(data);
 					Main.MF.dispose();
@@ -397,6 +392,7 @@ class Data_list extends JFrame{
 		
 	}			
 }
+
 
 
 

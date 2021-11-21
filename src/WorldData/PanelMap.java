@@ -76,36 +76,6 @@ public class PanelMap extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		switch(e.getActionCommand()) {
-
-		case "아시아" :
-			System.out.print("아시아");
-			FrameCountryList.asiaList();
-			break;
-		case "유럽" :
-			System.out.print("유럽");
-			FrameCountryList.europeList();
-			break;
-		case "아프리카" :
-			System.out.print("아프리카");
-			FrameCountryList.africaList();
-			break;
-		case "북미" :
-			System.out.print("북미");
-			FrameCountryList.northAmericaList();
-			break;
-		case "남미" :
-			System.out.print("남미");
-			FrameCountryList.southAmericaList();
-			break;
-		case "오세아니아" :
-			System.out.print("오세아니아");
-			FrameCountryList.oceaniaList();
-			break;
-		default :
-			break;		
-		
-		}
-		
+		new FrameCountryList("select 국가 from country_data where 대륙 = '" + e.getActionCommand() + "'" ,"대륙", e.getActionCommand());
 	}
 }

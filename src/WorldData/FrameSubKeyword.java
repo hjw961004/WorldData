@@ -9,16 +9,18 @@ import javax.swing.JFrame;
 
 public class FrameSubKeyword extends JFrame implements ActionListener{
 	JButton btn1, btn2, btn3, btn4, btn5;
+	int code;
 	
 	public FrameSubKeyword(int code, String str) {
 		super(str);
-		setSize(400,80);
+		setSize(500,80);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new FlowLayout());
+		this.code = code;
 
-		switch(code) {
+		switch(this.code) {
 		
 		case 1 :
 			btn1 = new JButton("열대");
@@ -88,69 +90,23 @@ public class FrameSubKeyword extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		switch(e.getActionCommand()) {
-		case "열대":
-			FrameCountryList.tropicsList();
+		switch(this.code) {
+		case 1:
+			new FrameCountryList("select 국가 from country_data where " + "기후" + " like '%" + e.getActionCommand() + "%'"
+					, "기후", e.getActionCommand());
 			dispose();
 			break;
-		case "온대":
-			FrameCountryList.temperateList();
+		case 2:
+			new FrameCountryList("select 국가 from country_data where " + "종교" + " like '%" + e.getActionCommand() + "%'"
+					, "종교", e.getActionCommand());
 			dispose();
 			break;
-		case "냉대":
-			FrameCountryList.coldList();
+		case 3:
+			new FrameCountryList("select 국가 from country_data where " + "언어" + " like '%" + e.getActionCommand() + "%'"
+					, "언어", e.getActionCommand());
 			dispose();
 			break;
-		case "건조":
-			FrameCountryList.dryList();
-			dispose();
-			break;
-			
-		case "기독교":
-			FrameCountryList.christianList();
-			dispose();
-			break;
-		case "불교":
-			FrameCountryList.buddhismList();
-			dispose();
-			break;
-		case "이슬람":
-			FrameCountryList.islamList();
-			dispose();
-			break;
-		case "힌두교":
-			FrameCountryList.hinduismList();
-			dispose();
-			break;
-		case "기타 종교":
-			FrameCountryList.religionEtcList();
-			dispose();
-			break;
-			
-
-		case "영어":
-			FrameCountryList.englishList();
-			dispose();
-			break;
-		case "스페인어":
-			FrameCountryList.spanishList();
-			dispose();
-			break;
-		case "불어":
-			FrameCountryList.frenchList();
-			dispose();
-			break;
-		case "아랍어":
-			FrameCountryList.arabicList();
-			dispose();
-			break;
-		case "기타 언어":
-			FrameCountryList.languageEtcList();
-			dispose();
-			break;
-			
 		default:
-			dispose();
 			break;
 		}
 	}
