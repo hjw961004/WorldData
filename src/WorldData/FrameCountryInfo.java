@@ -20,6 +20,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import java.awt.FlowLayout;
@@ -383,6 +388,40 @@ class Data_list extends JFrame{
 			frame.add(scrollpane);
 			frame.pack();
 			frame.setVisible(true);
+			
+			
+			File csv = new File("C:\\output.csv");
+	        BufferedWriter bw = null;
+	        
+	        try {
+	            bw = new BufferedWriter(new FileWriter(csv, true));
+	            
+	            
+
+	            for(int i = 0; i < 2; i++) {
+	            	String data = contents[0][i];
+	            	for(int j = 1; j < 18; j++) {
+		            	data = data + "," + contents[j][i];
+	            	}
+	            	bw.write(data);
+	                bw.newLine();
+	            }
+	            
+	        } catch (FileNotFoundException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        } finally {
+	            try {
+	                if (bw != null) {
+	                    bw.flush();
+	                    bw.close();
+	                }
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        }
+			
 		}catch(SQLException e1) {
 			e1.printStackTrace();
 		}
