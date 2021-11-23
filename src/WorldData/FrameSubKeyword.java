@@ -92,18 +92,15 @@ public class FrameSubKeyword extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		switch(this.code) {
 		case 1:
-			new FrameCountryList("select 국가 from country_data where " + "기후" + " like '%" + e.getActionCommand() + "%'"
-					, "기후", e.getActionCommand());
+			new FrameCountryList(FrameCountryList.keywordCountryList("기후데이터", e.getActionCommand()), "기후데이터", e.getActionCommand());
 			dispose();
 			break;
 		case 2:
-			new FrameCountryList("select 국가 from country_data where " + "종교" + " like '%" + e.getActionCommand() + "%'"
-					, "종교", e.getActionCommand());
+			new FrameCountryList(FrameCountryList.keywordCountryList("종교데이터", e.getActionCommand()), "종교데이터", e.getActionCommand());
 			dispose();
 			break;
 		case 3:
-			new FrameCountryList("select 국가 from country_data where " + "언어" + " like '%" + e.getActionCommand() + "%'"
-					, "언어", e.getActionCommand());
+			new FrameCountryList(FrameCountryList.keywordCountryList("언어데이터", e.getActionCommand()), "언어데이터", e.getActionCommand());
 			dispose();
 			break;
 		default:

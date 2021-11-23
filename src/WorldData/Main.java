@@ -12,6 +12,5 @@ public class Main {
 		countryList = new ArrayList<Info>();
 		// TODO Auto-generated method stub
 		MF = new FrameMain();
-		//new FrameCountryInfo("'과테말라'");
 	}
 }

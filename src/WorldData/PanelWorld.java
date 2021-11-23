@@ -1,8 +1,6 @@
 package WorldData;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -13,6 +11,7 @@ public class PanelWorld extends JPanel implements ActionListener {
 	JPanel pnSearch;
 	PanelMap pnMap;
 	JPanel pnKeyword;
+	JTextField tfSearch;
 	FrameSubKeyword frSub;
 	
 	public PanelWorld() {
@@ -31,8 +30,8 @@ public class PanelWorld extends JPanel implements ActionListener {
 	
 	private void pnSearchSet() {
 		pnSearch = new JPanel();
-		
-		JTextField tfSearch = new JTextField("검색어를 입력하세요.");
+
+		tfSearch = new HintTextField("검색어를 두 글자 이상 입력하세요.");
 		JButton btnSearch = new JButton("검색");
 		
 		tfSearch.setPreferredSize(new Dimension(800,30));
@@ -40,6 +39,7 @@ public class PanelWorld extends JPanel implements ActionListener {
 		
 		pnSearch.add(tfSearch);
 		pnSearch.add(btnSearch);
+		btnSearch.addActionListener(this);
 	}
 	
 	private void pnMapSet() {
@@ -73,6 +73,7 @@ public class PanelWorld extends JPanel implements ActionListener {
 		switch(e.getActionCommand()) {
 		
 		case "검색" :
+			new FrameCountryList(FrameCountryList.totalSearchCountryList(tfSearch.getText()), null, tfSearch.getText());
 			break;
 			
 		case "기후" :
@@ -103,4 +104,47 @@ public class PanelWorld extends JPanel implements ActionListener {
 			break;
 		}
 	}
+
+	public class HintTextField extends JTextField {
+
+        Font gainFont = new Font("맑은 고딕", Font.PLAIN, 11);
+        Font lostFont = new Font("맑은 고딕", Font.ITALIC, 11);
+
+        public HintTextField(final String hint) {
+
+          setText(hint);
+          setFont(lostFont);
+          setForeground(Color.GRAY);
+          this.addFocusListener(new FocusAdapter() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+
+              if (getText().equals(hint)) {
+                setText("");
+                setFont(gainFont);
+              }
+              else {
+                setText(getText());
+                setFont(gainFont);
+              }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+
+              if (getText().equals(hint)|| getText().length()==0) {
+                setText(hint);
+                setFont(lostFont);
+                setForeground(Color.GRAY);
+              } 
+              else {
+                setText(getText());
+                setFont(gainFont);
+                setForeground(Color.BLACK);
+              }
+            }
+          });
+        }
+      }
 }

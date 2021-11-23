@@ -287,7 +287,9 @@ public class FrameCountryInfo extends JFrame implements ActionListener {
 		panel_5.add(btnBack);
 		
 		btnBack.addActionListener(this);
-		
+
+		setResizable(false);
+		setLocationRelativeTo(null);
 		setVisible(true);
 			
 	}
@@ -309,13 +311,7 @@ public class FrameCountryInfo extends JFrame implements ActionListener {
 					dispose();
 				}
 				break;
-			case "상세 정보(CSV)":				
-				/*try {
-					Desktop.getDesktop().edit(new File("C:\\국가 파일.csv"));			
-
-				}catch(IOException e1) {
-					e1.printStackTrace();			
-				}*/
+			case "상세 정보(CSV)":	
 				new Data_list(stmt);				
 				break;
 			case "뒤로가기" :

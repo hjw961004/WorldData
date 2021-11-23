@@ -76,6 +76,6 @@ public class PanelMap extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		new FrameCountryList("select 국가 from country_data where 대륙 = '" + e.getActionCommand() + "'" ,"대륙", e.getActionCommand());
+		new FrameCountryList(FrameCountryList.worldMapCountryList(e.getActionCommand()), null, e.getActionCommand());
 	}
 }
