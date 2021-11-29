@@ -20,7 +20,7 @@ public class FrameCountryList extends JFrame {
 	FrameCountryList frameCountryList;
 	static String name;
 	JFrame jFrame;
-	JList jList; //리스트
+	JList<String> jList; //리스트
 	DefaultListModel<String> listModel = new DefaultListModel<>(); //리스트에 넣을 리스트모델(국가)
 	JButton backButton;
 	
@@ -71,7 +71,7 @@ public class FrameCountryList extends JFrame {
 		}
 		else {
 			JPanel listPanel = new JPanel();
-			jList = new JList(listModel);
+			jList = new JList<String>(listModel);
 			listPanel.setLayout(new CardLayout());
 			listPanel.add(jList, BorderLayout.CENTER);
 			jList.addListSelectionListener(listListener);
