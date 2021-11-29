@@ -44,7 +44,7 @@ public class FrameSubKeyword extends JFrame implements ActionListener{
 			btn2 = new JButton("불교");
 			btn3 = new JButton("이슬람");
 			btn4 = new JButton("힌두교");
-			btn5 = new JButton("기타 종교");
+			btn5 = new JButton("기타");
 			
 			this.add(btn1);
 			this.add(btn2);
@@ -64,7 +64,7 @@ public class FrameSubKeyword extends JFrame implements ActionListener{
 			btn2 = new JButton("스페인어");
 			btn3 = new JButton("불어");
 			btn4 = new JButton("아랍어");
-			btn5 = new JButton("기타 언어");
+			btn5 = new JButton("기타");
 			
 			this.add(btn1);
 			this.add(btn2);
