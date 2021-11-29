@@ -23,8 +23,11 @@ import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 import javax.swing.JButton;
 import java.awt.FlowLayout;
@@ -386,18 +389,18 @@ class Data_list extends JFrame{
 			frame.setVisible(true);
 			
 			
-			File csv = new File("C:\\output.csv");
+			OutputStream csv = new FileOutputStream(new File("C:\\output.csv"));
 	        BufferedWriter bw = null;
 	        
 	        try {
-	            bw = new BufferedWriter(new FileWriter(csv, true));
+	            bw = new BufferedWriter(new OutputStreamWriter(csv, "MS949"));
 	            
 	            
 
 	            for(int i = 0; i < 2; i++) {
-	            	String data = contents[0][i];
+	            	String data = "\"" + contents[0][i] + "\"";
 	            	for(int j = 1; j < 18; j++) {
-		            	data = data + "," + contents[j][i];
+		            	data =  data + "," +  "\"" + contents[j][i] + "\"";
 	            	}
 	            	bw.write(data);
 	                bw.newLine();
@@ -418,7 +421,7 @@ class Data_list extends JFrame{
 	            }
 	        }
 			
-		}catch(SQLException e1) {
+		}catch(SQLException | FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
 		
